@@ -1,0 +1,3 @@
+*.o
+src/cpu_main
+.vscode
