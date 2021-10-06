@@ -15,5 +15,5 @@ $(OBJ)/measurement.o: src/measurement.*
 	$(CC) $(CFLAGS) -c -I../ ../measurement.c
 
 clean:
-	rm -rf $(OBJ);\
+	rm -rf $(OBJ)/*.o;\
 	rm -f src/cpu_main
