@@ -31,9 +31,9 @@ double read_overhead(int num)
     results[i] = tend - tstart;
   }
 
-  free(results);
   double avg = get_average(results, num);
   printf("Average: %f\n", avg);
+  free(results);
   return avg;
 }
 
