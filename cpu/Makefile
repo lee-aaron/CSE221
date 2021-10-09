@@ -2,9 +2,9 @@ CC = g++
 CFLAGS = -Wall -g
 OBJ = src/obj
 
-all: $(OBJ)/main.o $(OBJ)/measurement.o $(OBJ)/procedure.o $(OBJ)/syscall.o
+all: $(OBJ)/main.o $(OBJ)/measurement.o $(OBJ)/procedure.o $(OBJ)/syscall.o $(OBJ)/switch.o
 	cd src;\
-	$(CC) $(CFLAGS) -I. obj/main.o obj/measurement.o obj/procedure.o obj/syscall.o -o cpu_main
+	$(CC) $(CFLAGS) -I. obj/main.o obj/measurement.o obj/procedure.o obj/syscall.o obj/switch.o -o cpu_main
 
 $(OBJ)/main.o: src/main.c
 	cd $(OBJ);\
@@ -21,6 +21,10 @@ $(OBJ)/procedure.o: src/procedure.*
 $(OBJ)/syscall.o: src/syscall.*
 	cd $(OBJ);\
 	$(CC) $(CFLAGS) -c -I../ ../syscall.c
+
+$(OBJ)/switch.o: src/switch.*
+	cd $(OBJ);\
+	$(CC) $(CFLAGS) -c -I../ ../switch.c
 
 clean:
 	rm -rf $(OBJ)/*.o;\

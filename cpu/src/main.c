@@ -5,6 +5,7 @@
 #include "measurement.h"
 #include "procedure.h"
 #include "syscall.h"
+#include "switch.h"
 
 int main(int argc, char **argv)
 {
@@ -15,4 +16,5 @@ int main(int argc, char **argv)
     procedure_overhead(num, i);
   }
   syscall_overhead(num);
+  switch_overhead(10);
 }
