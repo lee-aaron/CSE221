@@ -3,4 +3,6 @@
 
 double switch_overhead(int num);
 
+double create_overhead(int num);
+
 #endif
