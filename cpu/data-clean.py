@@ -18,6 +18,13 @@ if __name__ == '__main__':
     twosigma = avg + std * 2
     datas = [x for x in dataso if x <= twosigma]
 
+    print('Before')
+    print(f'Average: {avg}')
+    print(f'Std dev: {std}')
+    print(f'Length:  {len(dataso)}')
+    print()
+
+    print('After')
     print(f'Average: {np.average(datas)}')
     print(f'Std dev: {np.std(datas)}')
     print(f'Length:  {len(datas)}')
