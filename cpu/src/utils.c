@@ -11,6 +11,8 @@ void write_to_file(char filename[], uint64_t *results, int length)
   strncat(location, filename, strlen(filename));
 
   FILE *fp = fopen(location, "w+");
-  fwrite(results, sizeof(uint64_t), length, fp);
+  for (int i = 0; i < length; i++) {
+    fprintf(fp, "%ld\n", results[i]);
+  }
   fclose(fp);
 }

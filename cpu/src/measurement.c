@@ -8,7 +8,7 @@
 
 double read_overhead(int num)
 {
-  char filename[] = "read_overhead.bin";
+  char filename[] = "read_overhead.txt";
   unsigned cycles_high0, cycles_high1, cycles_low0, cycles_low1;
   uint64_t tstart, tend;
   uint64_t *results = (uint64_t *)malloc(num * sizeof(uint64_t));

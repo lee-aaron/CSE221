@@ -30,6 +30,9 @@ $(OBJ)/switch.o: src/switch.*
 	cd $(OBJ);\
 	$(CC) $(CFLAGS) -c -I../ ../switch.c
 
+results:
+	rm -rf src/results
+
 clean:
 	rm -rf $(OBJ)/*.o;\
 	rm -f src/cpu_main
