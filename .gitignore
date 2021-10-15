@@ -1,3 +1,4 @@
 *.o
 cpu/src/cpu_main
+cpu/src/results
 .vscode

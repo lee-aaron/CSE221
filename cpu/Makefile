@@ -2,13 +2,17 @@ CC = g++
 CFLAGS = -Wall -g -pthread -lm
 OBJ = src/obj
 
-all: $(OBJ)/main.o $(OBJ)/measurement.o $(OBJ)/procedure.o $(OBJ)/syscall.o $(OBJ)/switch.o
+all: $(OBJ)/main.o $(OBJ)/measurement.o $(OBJ)/procedure.o $(OBJ)/syscall.o $(OBJ)/switch.o $(OBJ)/utils.o
 	cd src;\
-	$(CC) $(CFLAGS) -I. obj/main.o obj/measurement.o obj/procedure.o obj/syscall.o obj/switch.o -o cpu_main
+	$(CC) $(CFLAGS) -I. obj/*.o -o cpu_main
 
 $(OBJ)/main.o: src/main.c
 	cd $(OBJ);\
 	$(CC) $(CFLAGS) -c -I../ ../main.c
+
+$(OBJ)/utils.o: src/utils.*
+	cd $(OBJ);\
+	$(CC) $(CFLAGS) -c -I../ ../utils.c
 
 $(OBJ)/measurement.o: src/measurement.*
 	cd $(OBJ);\

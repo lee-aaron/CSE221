@@ -15,7 +15,6 @@ void *helper(void *arg) {
 }
 
 double switch_overhead(int num) {
-    static int thread_id = 0;
     uint64_t *results = (uint64_t *)malloc(num * sizeof(uint64_t));
     memset(results, 0, num * sizeof(uint64_t));
 
@@ -50,7 +49,6 @@ double switch_overhead(int num) {
 }
 
 double create_overhead(int num) {
-    static int thread_id = 0;
     uint64_t *results = (uint64_t *)malloc(num * sizeof(uint64_t));
     memset(results, 0, num * sizeof(uint64_t));
 

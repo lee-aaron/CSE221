@@ -4,9 +4,11 @@
 #include <math.h>
 #include <stdint.h>
 #include "measurement.h"
+#include "utils.h"
 
 double read_overhead(int num)
 {
+  char filename[] = "read_overhead.bin";
   unsigned cycles_high0, cycles_high1, cycles_low0, cycles_low1;
   uint64_t tstart, tend;
   uint64_t *results = (uint64_t *)malloc(num * sizeof(uint64_t));
@@ -34,6 +36,7 @@ double read_overhead(int num)
   double avg = get_average(results, num);
   printf("Average Read Overhead: %f\n", avg);
   printf("Standard Deviation for Loop Overhead: %f\n", get_sd(results, num));
+  write_to_file(filename, results, num);
   free(results);
   return avg;
 }
@@ -81,7 +84,8 @@ double get_sd(uint64_t *results, int length)
 {
   double avg = get_average(results, length);
   double sd = 0.0;
-  for (int i = 0; i < length; i++) {
+  for (int i = 0; i < length; i++)
+  {
     sd += pow(results[i] - avg, 2);
   }
   sd /= length;
