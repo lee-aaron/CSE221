@@ -9,6 +9,7 @@
 #include <pthread.h>
 
 #include "measurement.h"
+#include "utils.h"
 
 void *helper(void *arg) {
     return NULL;
@@ -44,6 +45,7 @@ double switch_overhead(int num) {
     double avg = get_average(results, num);
     printf("Kernel Thread Switch Overhead: %f\n", avg);
     printf("Standard Deviation: %f\n", get_sd(results, num));
+    write_to_file("switch_overhead.txt", results, num);
     free(results);
     return avg;
 }
@@ -77,6 +79,7 @@ double create_overhead(int num) {
     double avg = get_average(results, num);
     printf("Kernel Thread Creation Overhead: %f\n", avg);
     printf("Standard Deviation: %f\n", get_sd(results, num));
+    write_to_file("create_overhead.txt", results, num);
     free(results);
     return avg;
 }
