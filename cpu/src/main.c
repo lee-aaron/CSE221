@@ -18,4 +18,6 @@ int main(int argc, char **argv)
   syscall_overhead(num);
   switch_overhead(num);
   create_overhead(num);
+  switch_overhead_c(num);
+  create_overhead_c(num);
 }
