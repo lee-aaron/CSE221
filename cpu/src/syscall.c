@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+#include "utils.h"
 #include "measurement.h"
 
 double syscall_overhead(int num) {
@@ -47,6 +48,7 @@ double syscall_overhead(int num) {
             waitpid(pid, NULL, 0);
         }
     }
+    write_to_file("syscall_overhead.txt", results, num);
 
     double avg = get_average(results, num);
     printf("System Call Overhead: %f\n", avg);
