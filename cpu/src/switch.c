@@ -111,8 +111,8 @@ double switch_overhead_c(int num)
                          "mov %%edx, %0\n\t"
                          "mov %%eax, %1\n\t"
                          : "=r"(cycles_high0), "=r"(cycles_low0)::"%rax", "%rbx", "%rcx", "%rdx");
-            read(pipefd[0], &cycles_high1, sizeof(uint64_t));
-            read(pipefd[0], &cycles_low1, sizeof(uint64_t));
+            read(pipefd[0], &cycles_high1, sizeof(unsigned));
+            read(pipefd[0], &cycles_low1, sizeof(unsigned));
             waitpid(pid, NULL, 0);
             uint64_t tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
             uint64_t tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
@@ -125,8 +125,8 @@ double switch_overhead_c(int num)
                          "mov %%eax, %1\n\t"
                          "cpuid\n\t"
                          : "=r"(cycles_high1), "=r"(cycles_low1)::"%rax", "%rbx", "%rcx", "%rdx");
-            write(pipefd[1], &cycles_high1, sizeof(uint64_t));
-            write(pipefd[1], &cycles_low1, sizeof(uint64_t));
+            write(pipefd[1], &cycles_high1, sizeof(unsigned));
+            write(pipefd[1], &cycles_low1, sizeof(unsigned));
             _exit(0);
         }
     }
