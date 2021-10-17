@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include "procedure.h"
 #include "measurement.h"
+#include "utils.h"
 
 void func0() {}
 void func1(int a) {}
@@ -17,6 +18,8 @@ void func7(int a, int b, int c, int d, int e, int f, int g) {}
 
 double procedure_overhead(int num, int args)
 {
+  char filename[21];
+  snprintf(filename, 21, "read_procedure_%d.txt", args);
   unsigned cycles_high0, cycles_high1, cycles_low0, cycles_low1;
   uint64_t tstart, tend;
   uint64_t *results = (uint64_t *)malloc(num * sizeof(uint64_t));
@@ -209,6 +212,7 @@ double procedure_overhead(int num, int args)
   printf("Arguments: %d\n", args);
   printf("Average Procedure Overhead: %f\n", avg);
   printf("Standard Deviation: %f\n", get_sd(results, num));
+  write_to_file(filename, results, num);
   free(results);
   return avg;
 }
