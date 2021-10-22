@@ -1,4 +1,6 @@
 *.o
 cpu/src/cpu_main
 cpu/src/results
+memory/src/results
+memory/src/mem_main
 .vscode
