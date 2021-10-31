@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -Wall -g -pthread -lm
+CFLAGS = -Wall -g -pthread -lm -O0
 OBJ = src/obj
 
 all: $(OBJ)/main.o $(OBJ)/measurement.o $(OBJ)/procedure.o $(OBJ)/syscall.o $(OBJ)/switch.o $(OBJ)/utils.o
