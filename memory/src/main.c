@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include "access_time.h"
 #include "bandwidth.h"
+#include "page_fault.h"
 #include "utils.h"
 
 int main(int argc, char **argv)
@@ -14,6 +15,8 @@ int main(int argc, char **argv)
 
   int num = 1000;
   access_time(num);
-  read_bandwidth(500, cycle_per_s);
-  write_bandwidth(100, cycle_per_s);
+  //read_bandwidth(500, cycle_per_s);
+  //write_bandwidth(100, cycle_per_s);
+  printf("Start running Page Fault Time\n");
+  fault_time(num);
 }

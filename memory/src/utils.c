@@ -44,6 +44,16 @@ void write_access_time(const char *filename, uint64_t stride, uint64_t size, dou
   fclose(fp);
 }
 
+void write_fault_time(const char *filename, double time)
+{
+  char location[256] = "./src/results/";
+  strncat(location, filename, strlen(filename));
+
+  FILE *fp = fopen(location, "a");
+  fprintf(fp, "%f\n", time);
+  fclose(fp);
+}
+
 void delete_file(const char *filename)
 {
   char location[256] = "./src/results/";
