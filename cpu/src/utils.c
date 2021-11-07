@@ -16,3 +16,30 @@ void write_to_file(const char *filename, uint64_t *results, int length)
   }
   fclose(fp);
 }
+
+void append_to_file(const char *filename, double result)
+{
+  char location[256] = "./src/results/";
+  strncat(location, filename, strlen(filename));
+
+  FILE *fp = fopen(location, "a");
+  fprintf(fp, "%f\n", result);
+  fclose(fp);
+}
+
+void delete_file(const char *filename)
+{
+  char location[256] = "./src/results/";
+  strncat(location, filename, strlen(filename));
+
+  FILE *fp = fopen(location, "r");
+  if (NULL != fp)
+  {
+    fseek(fp, 0, SEEK_END);
+    if (ftell(fp) > 0)
+    {
+      fclose(fp);
+      remove(location);
+    }
+  }
+}
