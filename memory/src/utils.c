@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include "utils.h"
 
-unsigned cycles_high0, cycles_high1, cycles_low0, cycles_low1;
+static unsigned cycles_high0, cycles_high1, cycles_low0, cycles_low1;
 uint64_t tstart, tend;
 
 void write_to_file(const char *filename, uint64_t *results, int length)
@@ -17,6 +17,19 @@ void write_to_file(const char *filename, uint64_t *results, int length)
   for (int i = 0; i < length; i++)
   {
     fprintf(fp, "%ld\n", results[i]);
+  }
+  fclose(fp);
+}
+
+void write_to_file_d(const char *filename, double *results, int length)
+{
+  char location[256] = "./src/results/";
+  strncat(location, filename, strlen(filename));
+
+  FILE *fp = fopen(location, "w");
+  for (int i = 0; i < length; i++)
+  {
+    fprintf(fp, "%f\n", results[i]);
   }
   fclose(fp);
 }
