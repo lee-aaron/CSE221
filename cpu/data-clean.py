@@ -12,21 +12,21 @@ def show_histogram(datas):
 
 if __name__ == '__main__':
     fin = open(sys.argv[1]) if len(sys.argv) > 1 else sys.stdin
-    dataso = [int(x) for x in fin.read().split()]
+    dataso = [float(x) for x in fin.read().split()]
     avg = np.average(dataso)
     std = np.std(dataso)
     twosigma = avg + std * 2
     datas = [x for x in dataso if x <= twosigma]
 
     print('Before')
-    print(f'Average: {avg}')
-    print(f'Std dev: {std}')
+    print(f'Average: {avg:e}')
+    print(f'Std dev: {std:e}')
     print(f'Length:  {len(dataso)}')
     print()
 
     print('After')
-    print(f'Average: {np.average(datas)}')
-    print(f'Std dev: {np.std(datas)}')
+    print(f'Average: {np.average(datas):e}')
+    print(f'Std dev: {np.std(datas):e}')
     print(f'Length:  {len(datas)}')
 
     # show_histogram(dataso)
