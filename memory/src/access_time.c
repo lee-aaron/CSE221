@@ -3,7 +3,7 @@
 #include "utils.h"
 #include "access_time.h"
 
-void access_time(int num)
+void access_time(int num, double cps)
 {
   char filename[] = "access_time.txt";
   // deletes file if it is not empty
@@ -49,7 +49,7 @@ void access_time(int num)
       }
       read_end();
       double cycles = (double)(tend - tstart)/(double)num;
-      write_access_time(filename, stride, size, cycles);
+      write_access_time(filename, stride, size, cycles / (cps / 1e9)); // nanoseconds
       free(arr);
     }
   }
