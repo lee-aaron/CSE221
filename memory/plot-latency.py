@@ -19,4 +19,5 @@ if __name__ == '__main__':
     plt.xlabel('log2(array size)')
     plt.ylabel('latency in nanoseconds')
     plt.xticks(sdata[0].astype(int))
+    plt.legend(strides, title="Stride (Bytes)")
     plt.show()
