@@ -20,25 +20,17 @@ void fault_time(int num, double cps)
   double times[num];
   int pagesize = getpagesize();
 
-  int fd = open("test.txt", O_RDONLY);
-  fcntl(fd, F_NOCACHE, 1);
-  struct stat stats;
-  fstat(fd, &stats);
-  int filesize = stats.st_size;
-  
   printf("%d byte pages\n", pagesize);
-  printf("file test.txt @ %d bytes\n", filesize);
 
   for (int i = 0; i < num; i++) {
-    if(offset > filesize)
-    {
-      break;
-    }
-    void * mem = mmap(NULL, pagesize, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, offset);
-    if(mem == MAP_FAILED) printf("Map Failed\n");
+    system("sudo purge");
+    void * mem = mmap(NULL, pagesize, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, offset);
+    if(mem == MAP_FAILED) perror("mmap");
     offset+=pagesize;
     read_start();
-    c = *((char *)mem);
+    for (int j = 0; j < pagesize; j++) {
+      c = *((char *)mem+j);
+    }
     read_end();
     double cycles = (double)(tend - tstart);
     times[i] = cycles / (cps / 1e9);
