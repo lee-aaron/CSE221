@@ -6,18 +6,18 @@
 #include "measurement.h"
 #include "utils.h"
 
-double loop_avg(double* results, int num)
+double loop_avg(uint64_t* results, int num)
 {
   double avg = 0;
   for (int i = 0; i < num; i++)
   {
     avg += results[i];
   }
-  avg /= num;
+  avg /= (num * num);
   return avg;
 }
 
-double loop_sd(double* results, int num)
+double loop_sd(uint64_t* results, int num)
 {
   double avg = loop_avg(results, num);
   double sd = 0;
@@ -25,7 +25,7 @@ double loop_sd(double* results, int num)
   {
     sd += pow(results[i] - avg, 2);
   }
-  sd /= num;
+  sd /= (num * num);
   sd = sqrt(sd);
   return sd;
 }
@@ -71,8 +71,8 @@ double loop_overhead(int num)
   delete_file(filename);
   unsigned cycles_high0, cycles_high1, cycles_low0, cycles_low1;
   uint64_t tstart, tend;
-  double *results = (double *)malloc(num * sizeof(double));
-  memset(results, 0, num * sizeof(double));
+  uint64_t *results = (uint64_t *)malloc(num * sizeof(uint64_t));
+  memset(results, 0, num * sizeof(uint64_t));
 
   for (int i = 0; i < num; i++)
   {
@@ -94,12 +94,11 @@ double loop_overhead(int num)
 
     tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
     tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-    double avg = (double) (tend - tstart) / (double) num;
-    results[i] = avg;
-    append_to_file(filename, avg);
+    results[i] = tend - tstart;
   }
   
   double avg = loop_avg(results, num);
+  write_to_file(filename, results, num);
   printf("Average Loop Overhead: %f\n", avg);
   printf("Standard Deviation for Loop Overhead: %f\n", loop_sd(results, num));
   return 0;
