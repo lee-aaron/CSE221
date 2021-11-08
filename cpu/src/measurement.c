@@ -59,7 +59,7 @@ double read_overhead(int num)
 
   double avg = get_average(results, num);
   printf("Average Read Overhead: %f\n", avg);
-  printf("Standard Deviation for Loop Overhead: %f\n", get_sd(results, num));
+  printf("Standard Deviation for Read Overhead: %f\n", get_sd(results, num));
   write_to_file(filename, results, num);
   free(results);
   return avg;
