@@ -13,41 +13,39 @@
 void fault_time(int num, double cps)
 {
   char filename[] = "page_fault_time.txt";
-  // deletes file if it is not empty
-  //delete_file(filename);
+  delete_file(filename);
+
+  int offset = 0;
+  char c;
+  double times[num];
+  int pagesize = getpagesize();
 
   int fd = open("test.txt", O_RDONLY);
-  int pagesize = getpagesize();
+  fcntl(fd, F_NOCACHE, 1);
   struct stat stats;
   fstat(fd, &stats);
   int filesize = stats.st_size;
-  int size = pagesize*num;
-
+  
   printf("%d byte pages\n", pagesize);
-  printf("file %s @ %d bytes\n", filename, filesize);
+  printf("file test.txt @ %d bytes\n", filesize);
 
-  if(size > filesize)
-  {
-    int pages = ceil((filesize)/(double)pagesize);
-    size = pages*pagesize;
-  }
-  printf("Calling mmap on %d bytes\n", size);
-
-  void * mem = mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, fd, 0);
-
-  read_start();
-  char c;
-  for(int i=0; i<size; i+=pagesize)
-  {
-    for(int j=0; j < pagesize; j++) {
-      c = *((char *)mem+i+j);
+  for (int i = 0; i < num; i++) {
+    if(offset > filesize)
+    {
+      break;
     }
+    void * mem = mmap(NULL, pagesize, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, offset);
+    if(mem == MAP_FAILED) printf("Map Failed\n");
+    offset+=pagesize;
+    read_start();
+    c = *((char *)mem);
+    read_end();
+    double cycles = (double)(tend - tstart);
+    times[i] = cycles / (cps / 1e9);
+    munmap(mem, pagesize);   
   }
-  read_end();
-  double cycles = (double)(tend - tstart)/(double)num;
-  printf("Number of cycles: %f\n", cycles);
 
-  write_fault_time(filename, cycles / (cps / 1e9));
+  write_fault_time(filename, times, num);
 
   printf("Done running Page Fault Time\n");
 }
