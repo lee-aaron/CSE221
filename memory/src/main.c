@@ -18,6 +18,5 @@ int main(int argc, char **argv)
   access_time(num, cycle_per_s);
   read_bandwidth(50, cycle_per_s);
   write_bandwidth(50, cycle_per_s);
-  //printf("Start running Page Fault Time\n");
   fault_time(num, cycle_per_s);
 }
