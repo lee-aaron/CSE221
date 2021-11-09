@@ -19,14 +19,14 @@ if __name__ == '__main__':
     datas = [x for x in dataso if x <= twosigma]
 
     print('Before')
-    print(f'Average: {avg:e}')
-    print(f'Std dev: {std:e}')
+    print(f'Average: {avg:g}')
+    print(f'Std dev: {std:g}')
     print(f'Length:  {len(dataso)}')
     print()
 
     print('After')
-    print(f'Average: {np.average(datas):e}')
-    print(f'Std dev: {np.std(datas):e}')
+    print(f'Average: {np.average(datas):g}')
+    print(f'Std dev: {np.std(datas):g}')
     print(f'Length:  {len(datas)}')
 
     # show_histogram(dataso)

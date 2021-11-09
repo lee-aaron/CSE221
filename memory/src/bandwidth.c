@@ -20,7 +20,7 @@ void read_bandwidth(int num, double cps) {
         read_end();
         free(arr);
         double bandwidth = ARRAY_LEN * sizeof(int) / ((tend - tstart) / cps);
-        results[i] = bandwidth;
+        results[i] = bandwidth / 10e9;  // in GB/s
     }
     write_to_file_d("read_bandwidth.txt", results, num);
 }
@@ -37,7 +37,7 @@ void write_bandwidth(int num, double cps) {
         read_end();
         free(arr);
         double bandwidth = ARRAY_LEN * sizeof(int) / ((tend - tstart) / cps);
-        results[i] = bandwidth;
+        results[i] = bandwidth / 10e9;  // in GB/s
     }
     write_to_file_d("write_bandwidth.txt", results, num);
 }
