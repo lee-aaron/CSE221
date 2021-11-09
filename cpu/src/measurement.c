@@ -6,7 +6,7 @@
 #include "measurement.h"
 #include "utils.h"
 
-double loop_avg(uint64_t* results, int num)
+double loop_avg(double* results, int num)
 {
   double avg = 0;
   for (int i = 0; i < num; i++)
@@ -17,7 +17,7 @@ double loop_avg(uint64_t* results, int num)
   return avg;
 }
 
-double loop_sd(uint64_t* results, int num)
+double loop_sd(double* results, int num)
 {
   double avg = loop_avg(results, num);
   double sd = 0;
@@ -30,13 +30,13 @@ double loop_sd(uint64_t* results, int num)
   return sd;
 }
 
-double read_overhead(int num)
+double read_overhead(int num, double cps)
 {
   char filename[] = "read_overhead.txt";
   unsigned cycles_high0, cycles_high1, cycles_low0, cycles_low1;
   uint64_t tstart, tend;
-  uint64_t *results = (uint64_t *)malloc(num * sizeof(uint64_t));
-  memset(results, 0, num * sizeof(uint64_t));
+  double *results = (double *)malloc(num * sizeof(double));
+  memset(results, 0, num * sizeof(double));
 
   for (int i = 0; i < num; i++)
   {
@@ -54,7 +54,7 @@ double read_overhead(int num)
 
     tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
     tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-    results[i] = tend - tstart;
+    results[i] = (double)(tend - tstart)/(cps / 1e9);
   }
 
   double avg = get_average(results, num);
@@ -65,14 +65,14 @@ double read_overhead(int num)
   return avg;
 }
 
-double loop_overhead(int num)
+double loop_overhead(int num, double cps)
 {
   char filename[] = "loop_overhead.txt";
   delete_file(filename);
   unsigned cycles_high0, cycles_high1, cycles_low0, cycles_low1;
   uint64_t tstart, tend;
-  uint64_t *results = (uint64_t *)malloc(num * sizeof(uint64_t));
-  memset(results, 0, num * sizeof(uint64_t));
+  double *results = (double *)malloc(num * sizeof(double));
+  memset(results, 0, num * sizeof(double));
 
   for (int i = 0; i < num; i++)
   {
@@ -94,7 +94,7 @@ double loop_overhead(int num)
 
     tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
     tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-    results[i] = tend - tstart;
+    results[i] = (double)(tend - tstart)/(cps / 1e9);
   }
   
   double avg = loop_avg(results, num);
@@ -104,9 +104,9 @@ double loop_overhead(int num)
   return 0;
 }
 
-double get_average(uint64_t *results, int length)
+double get_average(double *results, int length)
 {
-  uint64_t sum = 0;
+  double sum = 0;
   for (int i = 0; i < length; i++)
   {
     sum += results[i];
@@ -114,7 +114,7 @@ double get_average(uint64_t *results, int length)
   return (double)sum / length;
 }
 
-double get_sd(uint64_t *results, int length)
+double get_sd(double *results, int length)
 {
   double avg = get_average(results, length);
   double sd = 0.0;

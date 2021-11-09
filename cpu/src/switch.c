@@ -16,10 +16,10 @@ void *helper(void *arg)
     return NULL;
 }
 
-double switch_overhead(int num)
+double switch_overhead(int num, double cps)
 {
-    uint64_t *results = (uint64_t *)malloc(num * sizeof(uint64_t));
-    memset(results, 0, num * sizeof(uint64_t));
+    double *results = (double *)malloc(num * sizeof(double));
+    memset(results, 0, num * sizeof(double));
 
     for (int i = 0; i < num; i++)
     {
@@ -42,7 +42,7 @@ double switch_overhead(int num)
 
         uint64_t tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
         uint64_t tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-        results[i] = tend - tstart;
+        results[i] = (double)(tend - tstart)/(cps / 1e9);
     }
 
     double avg = get_average(results, num);
@@ -53,10 +53,10 @@ double switch_overhead(int num)
     return avg;
 }
 
-double create_overhead(int num)
+double create_overhead(int num, double cps)
 {
-    uint64_t *results = (uint64_t *)malloc(num * sizeof(uint64_t));
-    memset(results, 0, num * sizeof(uint64_t));
+    double *results = (double *)malloc(num * sizeof(double));
+    memset(results, 0, num * sizeof(double));
 
     for (int i = 0; i < num; i++)
     {
@@ -78,7 +78,7 @@ double create_overhead(int num)
 
         uint64_t tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
         uint64_t tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-        results[i] = tend - tstart;
+        results[i] = (double)(tend - tstart)/(cps / 1e9);
     }
 
     double avg = get_average(results, num);
@@ -89,10 +89,10 @@ double create_overhead(int num)
     return avg;
 }
 
-double switch_overhead_c(int num)
+double switch_overhead_c(int num, double cps)
 {
-    uint64_t *results = (uint64_t *)malloc(num * sizeof(uint64_t));
-    memset(results, 0, num * sizeof(uint64_t));
+    double *results = (double *)malloc(num * sizeof(double));
+    memset(results, 0, num * sizeof(double));
     int pipefd[2];
     if (pipe(pipefd) == -1)
     {
@@ -116,7 +116,7 @@ double switch_overhead_c(int num)
             waitpid(pid, NULL, 0);
             uint64_t tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
             uint64_t tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-            results[i] = tend - tstart;
+            results[i] = (double)(tend - tstart)/(cps / 1e9);
         }
         else
         {
@@ -138,10 +138,10 @@ double switch_overhead_c(int num)
     return avg;
 }
 
-double create_overhead_c(int num)
+double create_overhead_c(int num, double cps)
 {
-    uint64_t *results = (uint64_t *)malloc(num * sizeof(uint64_t));
-    memset(results, 0, num * sizeof(uint64_t));
+    double *results = (double *)malloc(num * sizeof(double));
+    memset(results, 0, num * sizeof(double));
 
     for (int i = 0; i < num; i++)
     {
@@ -169,7 +169,7 @@ double create_overhead_c(int num)
 
         uint64_t tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
         uint64_t tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-        results[i] = tend - tstart;
+        results[i] = (double)(tend - tstart)/(cps / 1e9);
     }
 
     double avg = get_average(results, num);

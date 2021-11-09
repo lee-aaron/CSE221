@@ -8,9 +8,9 @@
 #include "utils.h"
 #include "measurement.h"
 
-double syscall_overhead(int num) {
-    uint64_t *results = (uint64_t *)malloc(num * sizeof(uint64_t));
-    memset(results, 0, num * sizeof(uint64_t));
+double syscall_overhead(int num, double cps) {
+    double *results = (double *)malloc(num * sizeof(double));
+    memset(results, 0, num * sizeof(double));
 
     int fds[2];
     if (pipe(fds) < 0) {
@@ -38,8 +38,8 @@ double syscall_overhead(int num) {
 
             uint64_t tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
             uint64_t tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-            uint64_t rslt = tend - tstart;
-            snprintf(msg, sizeof(msg), "%lu", rslt);
+            double rslt = (double)(tend - tstart)/(cps / 1e9);
+            snprintf(msg, sizeof(msg), "%f", rslt);
             write(fds[1], msg, sizeof(msg));
             _exit(0);
         } else {

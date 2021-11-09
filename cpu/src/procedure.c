@@ -16,14 +16,14 @@ void func5(int a, int b, int c, int d, int e) {}
 void func6(int a, int b, int c, int d, int e, int f) {}
 void func7(int a, int b, int c, int d, int e, int f, int g) {}
 
-double procedure_overhead(int num, int args)
+double procedure_overhead(int num, int args, double cps)
 {
   char filename[21];
   snprintf(filename, 21, "read_procedure_%d.txt", args);
   unsigned cycles_high0, cycles_high1, cycles_low0, cycles_low1;
   uint64_t tstart, tend;
-  uint64_t *results = (uint64_t *)malloc(num * sizeof(uint64_t));
-  memset(results, 0, num * sizeof(uint64_t));
+  double *results = (double *)malloc(num * sizeof(double));
+  memset(results, 0, num * sizeof(double));
 
   switch (args)
   {
@@ -46,7 +46,7 @@ double procedure_overhead(int num, int args)
 
       tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
       tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-      results[i] = tend - tstart;
+      results[i] = (double)(tend - tstart)/(cps / 1e9);
     }
     break;
   case 1:
@@ -68,7 +68,7 @@ double procedure_overhead(int num, int args)
 
       tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
       tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-      results[i] = tend - tstart;
+      results[i] = (double)(tend - tstart)/(cps / 1e9);
     }
     break;
   case 2:
@@ -90,7 +90,7 @@ double procedure_overhead(int num, int args)
 
       tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
       tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-      results[i] = tend - tstart;
+      results[i] = (double)(tend - tstart)/(cps / 1e9);
     }
     break;
   case 3:
@@ -112,7 +112,7 @@ double procedure_overhead(int num, int args)
 
       tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
       tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-      results[i] = tend - tstart;
+      results[i] = (double)(tend - tstart)/(cps / 1e9);
     }
     break;
   case 4:
@@ -134,7 +134,7 @@ double procedure_overhead(int num, int args)
 
       tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
       tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-      results[i] = tend - tstart;
+      results[i] = (double)(tend - tstart)/(cps / 1e9);
     }
     break;
   case 5:
@@ -156,7 +156,7 @@ double procedure_overhead(int num, int args)
 
       tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
       tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-      results[i] = tend - tstart;
+      results[i] = (double)(tend - tstart)/(cps / 1e9);
     }
     break;
   case 6:
@@ -178,7 +178,7 @@ double procedure_overhead(int num, int args)
 
       tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
       tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-      results[i] = tend - tstart;
+      results[i] = (double)(tend - tstart)/(cps / 1e9);
     }
     break;
   case 7:
@@ -200,7 +200,7 @@ double procedure_overhead(int num, int args)
 
       tstart = (((uint64_t)cycles_high0 << 32) | cycles_low0);
       tend = (((uint64_t)cycles_high1 << 32) | cycles_low1);
-      results[i] = tend - tstart;
+      results[i] = (double)(tend - tstart)/(cps / 1e9);
     }
     break;
   default:
