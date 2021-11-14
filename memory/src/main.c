@@ -15,8 +15,8 @@ int main(int argc, char **argv)
   printf("Cycles per second: %f\n", cycle_per_s);
 
   int num = 100;
-  // access_time(num, cycle_per_s);
-  // read_bandwidth(50, cycle_per_s);
-  // write_bandwidth(50, cycle_per_s);
+  access_time(num, cycle_per_s);
+  read_bandwidth(50, cycle_per_s);
+  write_bandwidth(50, cycle_per_s);
   fault_time(num, cycle_per_s);
 }
