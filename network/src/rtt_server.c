@@ -19,7 +19,7 @@ void start_server(char *ip, uint16_t port)
   struct sockaddr_in server, client;
   uint64_t count = 1000;
 
-  int sockaddr_len = sizeof(struct sockaddr_in);
+  int addrlen = sizeof(server);
   server_sock = socket(AF_INET, SOCK_STREAM, 0);
   if (server_sock < 0)
   {
@@ -37,19 +37,27 @@ void start_server(char *ip, uint16_t port)
     exit(1);
   }
 
-  listen(server_sock, 3);
+  if (listen(server_sock, 3) < 0)
+  {
+    perror("listen");
+    exit(1);
+  }
   char data[1024];
 
   while (1)
   {
 
-    client_sock = accept(server_sock, (struct sockaddr *)&client, (socklen_t *)&sockaddr_len);
+    client_sock = accept(server_sock, (struct sockaddr *)&client, (socklen_t *)&addrlen);
 
     if (client_sock < 0)
     {
       perror("client accept");
       exit(1);
     }
+
+    char ipstr[INET_ADDRSTRLEN];
+    inet_ntop(AF_INET, &client.sin_addr, ipstr, sizeof(ipstr));
+    printf("client connected from %s:%d\n", ipstr, ntohs(client.sin_port));
 
     for (uint64_t i = 0; i < count; ++i)
     {
