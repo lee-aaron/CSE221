@@ -13,4 +13,4 @@ fi
 
 make
 
-sudo nice -n -20 ./src/network_main
+sudo nice -n -20 ./src/network_main "$@"
