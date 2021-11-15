@@ -3,6 +3,6 @@
 #include <inttypes.h>
 
 void cache_size(const char *filename, uint64_t size);
-void init_test(char filenames[10][1024]);
+void init_test(char filenames[][1024]);
 
 #endif

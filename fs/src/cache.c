@@ -69,7 +69,7 @@ void cache_size(const char *filename, uint64_t size)
 
 void create_file(const char *filename, uint64_t size)
 {
-  FILE *fp = fopen(filename, "r");
+  FILE *fp = fopen(filename, "a");
   if (fp != NULL)
   {
     fseek(fp, 0, SEEK_END);
@@ -92,9 +92,9 @@ void create_file(const char *filename, uint64_t size)
   fclose(fp);
 }
 
-void init_test(char filenames[10][1024])
+void init_test(char filenames[][1024])
 {
-  int ARRAY_SIZE = 10;
+  int ARRAY_SIZE = 13;
   uint64_t size[ARRAY_SIZE];
   for (int i = 1; i <= ARRAY_SIZE; i++)
   {

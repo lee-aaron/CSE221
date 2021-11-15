@@ -6,8 +6,8 @@
 
 int main(int argc, char **argv)
 {
-  char filenames[10][1024];
-  for (int i = 0; i < 10; i++) {
+  char filenames[13][1024];
+  for (int i = 0; i < 13; i++) {
     sprintf(filenames[i], "src/files/file%d", i+1);
   }
 
