@@ -15,3 +15,7 @@ To run network tests, you need to `cd network` and run `./run-main.sh` with para
 To run the RTT tests, you need to add the `rtt_c <ip> <port>` argument to start the client and `rtt_s <ip> <port>` to start the server. Make sure the server is running before starting the client.
 
 ## File System
+
+To run file system tests, you need to `cd fs` and run `./run-main.sh` with parameters.
+
+To run the cache test, you need to add `cache` argument to the bash script to test it. The code will automatically generate files to measure the cache size.
