@@ -28,7 +28,7 @@ void start_server(char *ip, uint16_t port)
   }
 
   server.sin_family = AF_INET;
-  server.sin_addr.s_addr = inet_addr(ip);
+  server.sin_addr.s_addr = htonl(INADDR_ANY);
   server.sin_port = htons(port);
 
   if (bind(server_sock, (struct sockaddr *)&server, sizeof(server)) < 0)
