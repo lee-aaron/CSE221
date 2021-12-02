@@ -13,19 +13,19 @@
 #include <netdb.h>
 #include "utils.h"
 
-void start_client(char *ip, uint16_t port)
+void start_bw(char *ip, uint16_t port)
 {
   struct sockaddr_in server;
   server.sin_addr.s_addr = inet_addr(ip);
   server.sin_family = AF_INET;
   server.sin_port = htons(port);
 
-  uint64_t count = 1000;
+  uint64_t count = 500;
   uint64_t total = 0;
-  char data[1024] = "abc";
+  uint64_t SIZE = 32 * 1e6;
 
   double results[count];
-  char filename[] = "rtt_local.txt";
+  char filename[] = "bw_local.txt";
 
   int serv_sock = socket(AF_INET, SOCK_STREAM, 0);
   if (serv_sock < 0)
@@ -42,13 +42,20 @@ void start_client(char *ip, uint16_t port)
 
   for (uint64_t i = 0; i < count; i++)
   {
-
+    char *msg = (char *) malloc(sizeof(char) * SIZE);
+    memset(msg, 'a', SIZE);
     read_start();
-    send(serv_sock, &data, sizeof(data), 0);
-    recv(serv_sock, &data, sizeof(data), 0);
+    uint64_t bytes = recv(serv_sock, msg, SIZE, MSG_WAITALL);
     read_end();
+
+    if (bytes < 0) {
+      perror("recv");
+      exit(1);
+    }
+
     total += (tend - tstart);
     results[i] = (tend - tstart);
+    free(msg);
   }
 
   write_to_file(filename, results, count);
@@ -57,9 +64,9 @@ void start_client(char *ip, uint16_t port)
   close(serv_sock);
 }
 
-int start_c(char *ip, int port)
+int bw_client(char *ip, int port)
 {
   printf("Connecting to server at %s:%d\n", ip, port);
-  start_client(ip, port);
+  start_bw(ip, port);
   return 0;
 }

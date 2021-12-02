@@ -64,7 +64,10 @@ void start_server(char *ip, uint16_t port)
       recv(client_sock, &data, 1024, 0);
       send(client_sock, &data, 1024, 0);
     }
+
+    close(client_sock);
   }
+  close(server_sock);
 }
 
 int start_s(int argc, char **argv)
