@@ -14,6 +14,10 @@ To run network tests, you need to `cd network` and run `./run-main.sh` with para
 
 To run the RTT tests, you need to add the `rtt_c <ip> <port>` argument to start the client and `rtt_s <ip> <port>` to start the server. Make sure the server is running before starting the client.
 
+To run BW tests, you need add the `bw_c <ip> <port>` argument to start the client and `bw_s <ip> <port>` to start the server. Make sure the server is running before starting the client.
+
+To run the connection overhead tests, you need to add the `conn_c <ip> <port>` argument to start the client and `conn_s <ip> <port>` to start the server. Make sure the server is running before starting the client.
+
 ## File System
 
 To run file system tests, you need to `cd fs` and run `./run-main.sh` with parameters.
