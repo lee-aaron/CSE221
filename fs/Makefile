@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -Wall -g -pthread -lm -O0
 OBJ = src/obj
 
-all: $(OBJ)/main.o $(OBJ)/utils.o $(OBJ)/cache.o
+all: $(OBJ)/main.o $(OBJ)/utils.o $(OBJ)/cache.o $(OBJ)/contention.o
 	cd src;\
 	$(CC) $(CFLAGS) -I. obj/*.o -o fs_main
 
@@ -13,6 +13,10 @@ $(OBJ)/main.o: src/main.c
 $(OBJ)/cache.o: src/cache.c
 	cd $(OBJ);\
 	$(CC) $(CFLAGS) -c -I../ ../cache.c
+
+$(OBJ)/contention.o: src/contention.c
+	cd $(OBJ);\
+	$(CC) $(CFLAGS) -c -I../ ../contention.c
 
 $(OBJ)/utils.o: src/utils.c
 	cd $(OBJ);\

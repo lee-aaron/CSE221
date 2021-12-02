@@ -57,3 +57,11 @@ void write_to_file(const char *filename, uintmax_t total, uint64_t size)
     fclose(fp);
   }
 }
+
+void clear_cache() {
+#if __APPLE__
+  system("sync; sudo purge");
+#else
+  system("sync; echo 3 > /proc/sys/vm/drop_caches");
+#endif
+}
