@@ -81,4 +81,11 @@ void create_file(const char *filename, uint64_t size)
   fseek(fp, size * 1024 * 1024 * 1024 - 1, SEEK_SET);
   fputc('\0', fp);
   fclose(fp);
+
+void clear_cache() {
+#if __APPLE__
+  system("sync; sudo purge");
+#else
+  system("sync; echo 3 > /proc/sys/vm/drop_caches");
+#endif
 }
