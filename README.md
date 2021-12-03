@@ -23,3 +23,7 @@ To run the connection overhead tests, you need to add the `conn_c <ip> <port>` a
 To run file system tests, you need to `cd fs` and run `./run-main.sh` with parameters.
 
 To run the cache test, you need to add `cache` argument to the bash script to test it. The code will automatically generate files to measure the cache size.
+
+To run the sequential read test, you need to add `seq` argument to the bash script to test it. The code will automatically generate files to measure the average per block read time.
+
+To run the random access read test, you need to add `rand` argument to the bash script to test it. The code will automatically generate files to measure the average per block read time.

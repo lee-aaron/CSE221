@@ -57,3 +57,28 @@ void write_to_file(const char *filename, uintmax_t total, uint64_t size)
     fclose(fp);
   }
 }
+
+void create_file(const char *filename, uint64_t size)
+{
+  FILE *fp = fopen(filename, "a");
+  if (fp != NULL)
+  {
+    fseek(fp, 0, SEEK_END);
+    if (ftell(fp) != 0)
+    {
+      fclose(fp);
+      return;
+    }
+    fclose(fp);
+  }
+
+  fp = fopen(filename, "w");
+  if (fp == NULL)
+  {
+    perror("fopen");
+    exit(1);
+  }
+  fseek(fp, size * 1024 * 1024 * 1024 - 1, SEEK_SET);
+  fputc('\0', fp);
+  fclose(fp);
+}
