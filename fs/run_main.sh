@@ -15,9 +15,9 @@ if [ ! -d "src/files" ]; then
   mkdir -p src/files
 fi
 
-for i in $(seq 0 16); do
-    [ -f "src/files/cont$i" ] || dd status=none if=/dev/urandom of="src/files/cont$i" bs=1048576 count=64
-done
+#for i in $(seq 0 16); do
+#    [ -f "src/files/cont$i" ] || dd status=none if=/dev/urandom of="src/files/cont$i" bs=1048576 count=64
+#done
 
 make
 
