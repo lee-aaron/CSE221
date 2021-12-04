@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 {
   char filenames[16][1024];
   for (int i = 0; i < 13; i++) {
-    sprintf(filenames[i], "src/files/file%d", i+1);
+    sprintf(filenames[i], "./src/files/file%d", i+1);
   }
 
   if (argc > 1 && strcmp(argv[1], "cache") == 0) {

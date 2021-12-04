@@ -18,8 +18,9 @@ void seq_test(const char *filename, uint64_t size)
 #else
   system("sync; echo 3 > /proc/sys/vm/drop_caches");
 #endif
-
+  printf("%s\n", filename);
   int fd = open(filename, O_RDONLY);
+  printf("File Opened\n");
   if (fd < 0)
   {
     perror("open");
@@ -27,7 +28,7 @@ void seq_test(const char *filename, uint64_t size)
   }
 
   char *buf = (char *)malloc(BLOCKSIZE);
-  uintmax_t count = (size * 1024 * 1024 * 1024 - 1) / BLOCKSIZE;
+  uintmax_t count = (size * 1024 - 1) / BLOCKSIZE;
 
   uintmax_t total = 0;
   fd = open(filename, O_RDONLY);
@@ -39,9 +40,12 @@ void seq_test(const char *filename, uint64_t size)
 
   for (uintmax_t i = 0; i < count; i++)
   {
+    printf("Count is %d\n", i);
+    printf("Begin reading\n");
     read_start();
     uint64_t read_bytes = read(fd, buf, BLOCKSIZE);
     read_end();
+    printf("Finished reading\n");
     if (read_bytes <= 0)
     {
       perror("sequential read");
@@ -63,8 +67,9 @@ void rand_test(const char *filename, uint64_t size)
 #else
   system("sync; echo 3 > /proc/sys/vm/drop_caches");
 #endif
-
+  printf("%s\n", filename);
   int fd = open(filename, O_RDONLY);
+  printf("File Opened\n");
   if (fd < 0)
   {
     perror("open");
@@ -84,10 +89,13 @@ void rand_test(const char *filename, uint64_t size)
 
   for (uintmax_t i = count; i > 0; i--)
   {
+    printf("Count is %d\n", i);
     lseek(fd, (i-1)*BLOCKSIZE, SEEK_SET);
+    printf("Begin reading\n");
     read_start();
     uint64_t read_bytes = read(fd, buf, BLOCKSIZE);
     read_end();
+    printf("Finished reading\n");
     if (read_bytes <= 0)
     {
       perror("reverse read");
@@ -109,7 +117,7 @@ void read_test(char filenames[][1024], int flag)
   for (int i = 1; i <= ARRAY_SIZE; i++)
   {
     size[i - 1] = i;
-    create_file(filenames[i - 1], i);
+    //create_file(filenames[i - 1], i);
   }
 
   delete_file("read.txt");
