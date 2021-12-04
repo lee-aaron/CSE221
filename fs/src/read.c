@@ -9,7 +9,7 @@
 #include "utils.h"
 #include "read.h"
 
-#define BLOCKSIZE 4096
+#define BLOCKSIZE 4
 
 void seq_test(const char *filename, uint64_t size)
 {
