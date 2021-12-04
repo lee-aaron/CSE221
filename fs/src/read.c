@@ -117,7 +117,7 @@ void read_test(char filenames[][1024], int flag)
   for (int i = 1; i <= ARRAY_SIZE; i++)
   {
     size[i - 1] = i;
-    //create_file(filenames[i - 1], i);
+    create_file(filenames[i - 1], i);
   }
 
   delete_file("read.txt");
