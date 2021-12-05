@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     for (int i = 0; i < 16; i++) {
       sprintf(filenames[i], "src/files/cont%d", i);
     }
-    delete_file("src/results/contention.txt");
+    delete_file("contention.txt");
     for (int i = 1; i <= 16; i++) {
       contention(filenames, i);
     }
