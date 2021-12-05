@@ -27,3 +27,5 @@ To run the cache test, you need to add `cache` argument to the bash script to te
 To run the sequential read test, you need to add `seq` argument to the bash script to test it. The code will automatically generate files to measure the average per block read time.
 
 To run the random access read test, you need to add `rand` argument to the bash script to test it. The code will automatically generate files to measure the average per block read time.
+
+To run the contention test, you need to add `contention` argument to the bash script to test it. The code will automatically generate files to measure the block reading time when there are 1 to 16 processes.
