@@ -103,7 +103,7 @@ void create_file_kb(const char *filename, uint64_t size)
     perror("fopen");
     exit(1);
   }
-  fseek(fp, size * 1024 - 1, SEEK_SET);
+  fseek(fp, size * 8192 - 1, SEEK_SET);
   fputc('\0', fp);
   fclose(fp);
 }

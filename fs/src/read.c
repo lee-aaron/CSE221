@@ -9,7 +9,7 @@
 #include "utils.h"
 #include "read.h"
 
-#define BLOCKSIZE 4
+#define BLOCKSIZE 4096
 
 void seq_test(const char *filename, uint64_t size)
 {
@@ -28,7 +28,7 @@ void seq_test(const char *filename, uint64_t size)
   }
 
   char *buf = (char *)malloc(BLOCKSIZE);
-  uintmax_t count = (size * 1024 - 1) / BLOCKSIZE;
+  uintmax_t count = (size * 8192 - 1) / BLOCKSIZE;
 
   uintmax_t total = 0;
   fd = open(filename, O_RDONLY);
@@ -57,7 +57,7 @@ void seq_test(const char *filename, uint64_t size)
   close(fd);
   free(buf);
   char file[] = "read.txt";
-  write_to_file(file, (total/count), size);
+  write_to_file(file, (total/count), size*8);
 }
 
 void rand_test(const char *filename, uint64_t size)
@@ -77,7 +77,7 @@ void rand_test(const char *filename, uint64_t size)
   }
 
   char *buf = (char *)malloc(BLOCKSIZE);
-  uintmax_t count = (size * 1024 - 1) / BLOCKSIZE;
+  uintmax_t count = (size * 8192 - 1) / BLOCKSIZE;
 
   uintmax_t total = 0;
   fd = open(filename, O_RDONLY);
@@ -107,7 +107,7 @@ void rand_test(const char *filename, uint64_t size)
   close(fd);
   free(buf);
   char file[] = "read.txt";
-  write_to_file(file, (total/count), size);
+  write_to_file(file, (total/count), size*8);
 }
 
 void read_test(char filenames[][1024], int flag)
