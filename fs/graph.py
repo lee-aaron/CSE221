@@ -14,6 +14,6 @@ if __name__ == '__main__':
         data.append([math.log(int(size)), math.log(time)])
     data = np.array(data, dtype=object)
     plt.plot(data[:, 0], data[:, 1])
-    plt.xlabel("Log of File Size (GB)")
+    plt.xlabel("Log of File Size (KB)")
     plt.ylabel("Log of Block Access Time (ns)")
     plt.show()
